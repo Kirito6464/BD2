@@ -1,45 +1,39 @@
-CREATE TABLE IF NOT EXISTS genre (
-id SERIAL PRIMARY KEY,
-name_genre TEXT NOT NULL
-);
+CREATE TABLE IF NOT EXISTS genres (
+	id serial PRIMARY KEY, 
+	genre_name varchar(100) NOT NULL UNIQUE);
 
-CREATE TABLE IF NOT EXISTS executor (
-id SERIAL PRIMARY KEY,
-name_executor TEXT NOT NULL,
-genre TEXT NOT NULL
-);
+CREATE TABLE IF NOT EXISTS artists (
+	id serial PRIMARY KEY, 
+	artist_name varchar(100) NOT NULL UNIQUE, 
+	artist_alias varchar(100) UNIQUE);
+	
+CREATE TABLE IF NOT EXISTS genres_artists (
+	genres_id integer REFERENCES genres(id), 
+	artists_id integer REFERENCES artists(id), 
+	CONSTRAINT genres_artists_pk PRIMARY KEY (genres_id, artists_id));	
 
-CREATE TABLE IF NOT EXISTS albom(
-id SERIAL PRIMARY KEY,
-name_albom TEXT NOT NULL,
-year_albom DATE NOT NULL,
-executor TEXT NOT NULL
-);
+CREATE TABLE IF NOT EXISTS albums (
+	id serial PRIMARY KEY, 
+	album_name varchar(100) NOT NULL, 
+	album_date integer NOT NULL);
+	
+CREATE TABLE IF NOT EXISTS albums_artists (
+	albums_id integer REFERENCES albums(id), 
+	artists_id integer REFERENCES artists(id), 
+	CONSTRAINT albums_artists_pk PRIMARY KEY (albums_id, artists_id));
 
-CREATE TABLE IF NOT EXISTS trek (
-id SERIAL PRIMARY KEY,
-name_trek TEXT NOT NULL,
-long TIME NOT NULL,
-albom_id INTEGER NOT NULL REFERENCES albom(id)
-);
+CREATE TABLE IF NOT EXISTS tracks (
+	id serial PRIMARY KEY, 
+	track_name varchar(100) NOT NULL, 
+	track_duration integer NOT NULL, 
+	album_id integer REFERENCES albums(id));
 
-CREATE TABLE IF NOT EXISTS compilation (
-id SERIAL PRIMARY KEY,
-name_comp TEXT NOT NULL,
-year_compilation DATE NOT NULL
-);
+CREATE TABLE IF NOT EXISTS collections (
+	id serial PRIMARY KEY, 
+	collection_name varchar(100) NOT NULL, 
+	collection_date integer NOT NULL);
 
-CREATE TABLE IF NOT EXISTS comp_trek (
-trek_id INTEGER NOT NULL REFERENCES trek(id),
-compilation_id INTEGER NOT NULL REFERENCES compilation(id)
-);
-
-CREATE TABLE IF NOT EXISTS executor_albom (
-executor_id INTEGER NOT NULL REFERENCES executor(id),
-albom_id INTEGER NOT NULL REFERENCES albom(id)
-);
-
-CREATE TABLE IF NOT EXISTS genre_executor (
-genre_id INTEGER NOT NULL REFERENCES genre(id),
-executor_id INTEGER NOT NULL REFERENCES executor(id)
-);
+CREATE TABLE IF NOT EXISTS tracks_collections (
+	track_id integer REFERENCES tracks(id), 
+	collection_id integer REFERENCES collections(id), 
+	CONSTRAINT track_collection_pk PRIMARY KEY (track_id, collection_id));
