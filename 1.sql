@@ -1,0 +1,45 @@
+CREATE TABLE IF NOT EXISTS genre (
+id SERIAL PRIMARY KEY,
+name_genre TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS executor (
+id SERIAL PRIMARY KEY,
+name_executor TEXT NOT NULL,
+genre TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS albom(
+id SERIAL PRIMARY KEY,
+name_albom TEXT NOT NULL,
+year_issue DZTE NOT NULL,
+executor TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS trek (
+id SERIAL PRIMARY KEY,
+name_trek TEXT NOT NULL,
+long TIME NOT NULL,
+albom_id INTEGER NOT NULL REFERENCES albom(id)
+);
+
+CREATE TABLE IF NOT EXISTS compilation (
+id SERIAL PRIMARY KEY,
+name_comp TEXT NOT NULL,
+years DATE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS comp_trek (
+trek_id INTEGER NOT NULL REFERENCES trek(id),
+compilation_id INTEGER NOT NULL REFERENCES compilation(id)
+);
+
+CREATE TABLE IF NOT EXISTS executor_albom (
+executor_id INTEGER NOT NULL REFERENCES executor(id),
+albom_id INTEGER NOT NULL REFERENCES albom(id)
+);
+
+CREATE TABLE IF NOT EXISTS genre_executor (
+genre_id INTEGER NOT NULL REFERENCES genre(id),
+executor_id INTEGER NOT NULL REFERENCES executor(id)
+);
