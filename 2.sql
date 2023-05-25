@@ -1,18 +1,18 @@
-SELECT name_albom, year_albom FROM albom    
-	WHERE year_albom = 2018;
+SELECT album_name, album_date FROM albums    
+	WHERE album_date = 2018;
 
-SELECT name_track, long FROM track   
-	ORDER BY long DESC
+SELECT track_name, track_duration FROM tracks t    
+	ORDER BY track_duration DESC
 	LIMIT 1;
 	
-SELECT name_track FROM track
-	WHERE long >= 210;
+SELECT track_name FROM tracks 
+	WHERE track_duration >= 210;
 	
-SELECT name_compilation FROM compilation
-	WHERE year_compilation BETWEEN 2018 and 2020;
+SELECT collection_name FROM collections 
+	WHERE collection_date BETWEEN 2018 and 2020;
 	
-SELECT name_executor FROM executor
-	WHERE name_executor NOT LIKE '%% %%';
+SELECT artist_name FROM artists
+	WHERE artist_name NOT LIKE '%% %%';
 	
-SELECT name_track FROM track
-	WHERE name_track LIKE '%%My%%';
+SELECT track_name FROM tracks
+	WHERE track_name LIKE '%%My%%';
