@@ -12,7 +12,7 @@ genre TEXT NOT NULL
 CREATE TABLE IF NOT EXISTS albom(
 id SERIAL PRIMARY KEY,
 name_albom TEXT NOT NULL,
-year_issue DZTE NOT NULL,
+year_albom DATE NOT NULL,
 executor TEXT NOT NULL
 );
 
@@ -26,7 +26,7 @@ albom_id INTEGER NOT NULL REFERENCES albom(id)
 CREATE TABLE IF NOT EXISTS compilation (
 id SERIAL PRIMARY KEY,
 name_comp TEXT NOT NULL,
-years DATE NOT NULL
+year_compilation DATE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS comp_trek (
