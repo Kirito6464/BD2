@@ -1,20 +1,20 @@
 SELECT g.genre_name, count(ga.artists_id) FROM genres g
-   JOIN genres_artists ga ON g.id = ga.genres_id
+   LEFT JOIN genres_artists ga ON g.id = ga.genres_id
    GROUP BY g.genre_name;
   
-SELECT al.album_name, al.album_date , count(t.id) FROM albums al
+SELECT count(t.id) FROM albums al
    JOIN tracks t ON al.id = t.album_id
-   WHERE al.album_date BETWEEN 2019 and 2020
-   GROUP BY al.album_name, al.album_date;
+   WHERE al.album_date BETWEEN 2019 and 2020;
    
 SELECT al.album_name, AVG(t.track_duration) FROM albums al
 	JOIN tracks t ON al.id = t.album_id
 	GROUP BY al.album_name;
 
 SELECT ar.artist_name FROM artists ar
+WHERE ar.artist_name NOT IN
    JOIN albums_artists aa ON ar.id = aa.artists_id
    JOIN albums a ON a.id = aa.albums_id
-   WHERE a.album_date < 2020; 
+   WHERE a.album_date = 2020; 
   
 SELECT c.collection_name FROM collections c
    JOIN tracks_collections tc ON c.id = tc.collection_id
