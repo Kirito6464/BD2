@@ -11,7 +11,8 @@ SELECT al.album_name, AVG(t.track_duration) FROM albums al
 	GROUP BY al.album_name;
 
 SELECT ar.artist_name FROM artists ar
-WHERE ar.artist_name NOT IN
+WHERE ar.artist_name NOT IN 
+   SELECT ar.artist_name FROM artists ar
    JOIN albums_artists aa ON ar.id = aa.artists_id
    JOIN albums a ON a.id = aa.albums_id
    WHERE a.album_date = 2020; 
